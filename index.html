@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>宋正宾｜用户体验作品集</title>
+  <style>
+    :root {
+      --bg: #111827;
+      --bg-soft: #162131;
+      --bg-deep: #0f1724;
+      --surface: rgba(255, 255, 255, 0.04);
+      --surface-2: rgba(255, 255, 255, 0.06);
+      --surface-3: rgba(255, 255, 255, 0.08);
+      --text-strong: #f7fbff;
+      --text: #e2ebf5;
+      --text-soft: #c7d4e2;
+      --text-muted: #aebed1;
+      --line: rgba(190, 210, 230, 0.16);
+      --line-soft: rgba(190, 210, 230, 0.09);
+      --primary: #d2e2f4;
+      --primary-soft: #9bb4ce;
+      --accent: #7ea5d2;
+      --shadow-lg: 0 26px 70px rgba(0, 0, 0, 0.34);
+      --shadow-md: 0 16px 40px rgba(0, 0, 0, 0.24);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+      --max-width: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      line-height: 1.75;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(111, 143, 179, 0.16), transparent 24%),
+        radial-gradient(circle at 88% 8%, rgba(145, 169, 195, 0.10), transparent 20%),
+        linear-gradient(180deg, #162131 0%, #111827 42%, #0f1724 100%);
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(15, 23, 36, 0.72);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(195, 215, 238, 0.08);
+    }
+
+    .nav-inner {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-size: 1.02rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      color: var(--text-strong);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      transition: color 0.25s ease, transform 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-strong);
+      transform: translateY(-1px);
+    }
+
+    .resume-btn {
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #d8e6f5 0%, #9eb8d5 100%);
+      color: #0f1724 !important;
+      font-weight: 700;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+    }
+
+    .section {
+      padding: 92px 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 110px minmax(220px, auto) minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+      margin-bottom: 34px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-kicker {
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      line-height: 1;
+      font-weight: 760;
+      letter-spacing: -0.05em;
+      color: rgba(195, 215, 238, 0.24);
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(2rem, 3vw, 2.7rem);
+      line-height: 1.04;
+      letter-spacing: -0.045em;
+      font-weight: 740;
+      color: var(--text-strong);
+    }
+
+    .section-desc {
+      max-width: 760px;
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 1rem;
+      line-height: 1.88;
+    }
+
+    .mini-label {
+      display: inline-block;
+      margin-bottom: 12px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      padding: 86px 0 54px;
+    }
+
+    .hero-shell {
+      position: relative;
+      padding: 76px 54px 46px;
+      border-radius: 38px;
+      background:
+        radial-gradient(circle at 72% 12%, rgba(126, 165, 210, 0.16), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.025) 100%);
+      border: 1px solid rgba(195, 215, 238, 0.10);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-shell::after {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(195, 215, 238, 0.05);
+      border-radius: 28px;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+      gap: 46px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(195, 215, 238, 0.12);
+      color: var(--primary);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(3.4rem, 8vw, 6rem);
+      line-height: 0.92;
+      letter-spacing: -0.06em;
+      font-weight: 780;
+      color: var(--text-strong);
+    }
+
+    .hero-role {
+      margin-bottom: 18px;
+      color: var(--primary);
+      font-size: 1.16rem;
+      font-weight: 700;
+    }
+
+    .hero-text {
+      max-width: 580px;
+      margin: 0 0 30px;
+      color: var(--text-soft);
+      font-size: 1.05rem;
+      line-height: 1.9;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 650;
+      transition: all 0.25s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #d8e6f5 0%, #9eb8d5 100%);
+      color: #0f1724 !important;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(195, 215, 238, 0.14);
+      color: var(--text-strong);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-2px);
+    }
+
+    .hero-panel {
+      padding: 30px 28px;
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.035) 100%);
+      border: 1px solid rgba(195, 215, 238, 0.10);
+      box-shadow: var(--shadow-md);
+    }
+
+    .hero-panel-title {
+      margin-bottom: 14px;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    .hero-highlight {
+      margin-bottom: 22px;
+      font-size: 1.9rem;
+      line-height: 1.22;
+      letter-spacing: -0.03em;
+      font-weight: 740;
+      color: var(--text-strong);
+    }
+
+    .hero-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 14px;
+    }
+
+    .hero-list li {
+      padding-top: 16px;
+      border-top: 1px solid rgba(195, 215, 238, 0.10);
+      color: var(--text-soft);
+      font-size: 0.98rem;
+      line-height: 1.78;
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+      gap: 36px;
+      align-items: start;
+    }
+
+    .about-profile {
+      display: grid;
+      grid-template-columns: 148px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .about-avatar {
+      width: 148px;
+      height: 148px;
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid rgba(195, 215, 238, 0.10);
+      background: rgba(255,255,255,0.03);
+      box-shadow: var(--shadow-md);
+    }
+
+    .about-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-name {
+      margin-bottom: 8px;
+      font-size: 1.8rem;
+      line-height: 1.1;
+      font-weight: 740;
+      color: var(--text-strong);
+    }
+
+    .about-subtitle {
+      margin-bottom: 18px;
+      color: var(--primary);
+      font-weight: 650;
+    }
+
+    .about-summary {
+      margin: 0 0 22px;
+      color: var(--text-soft);
+      line-height: 1.9;
+      font-size: 1rem;
+    }
+
+    .about-meta {
+      display: grid;
+      gap: 18px;
+    }
+
+    .about-meta-item {
+      padding-top: 16px;
+      border-top: 1px solid rgba(195, 215, 238, 0.10);
+    }
+
+    .about-meta-item strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      color: var(--text-strong);
+    }
+
+    .about-meta-item div,
+    .about-meta-item p {
+      color: var(--text-soft);
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    .edu-item + .edu-item {
+      margin-top: 12px;
+    }
+
+    .edu-time {
+      margin-top: 4px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .about-skill-wrap {
+      padding-left: 10px;
+    }
+
+    .about-skill-wrap h3 {
+      margin: 0 0 18px;
+      font-size: 1.18rem;
+      color: var(--text-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .skill-item {
+      padding: 18px 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(195, 215, 238, 0.10);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 128px;
+      text-align: center;
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+
+    .skill-item:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .skill-item img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .skill-item span {
+      display: block;
+      font-size: 0.92rem;
+      line-height: 1.45;
+      color: var(--text-strong);
+    }
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+
+    .project-row {
+      display: grid;
+      grid-template-columns: 520px minmax(0, 1fr);
+      gap: 42px;
+      align-items: center;
+      padding: 34px 0;
+      border-top: 1px solid rgba(195, 215, 238, 0.10);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .project-row:first-child {
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .project-visual {
+      width: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .project-visual img {
+      width: 100%;
+      height: auto;
+      border-radius: 24px;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.35s ease;
+    }
+
+    .project-row:hover .project-visual img {
+      transform: scale(1.02);
+    }
+
+    .project-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .project-meta {
+      color: var(--primary);
+      font-size: 0.92rem;
+      font-weight: 650;
+      letter-spacing: 0.03em;
+    }
+
+    .project-title {
+      margin: 0;
+      font-size: 1.72rem;
+      line-height: 1.14;
+      letter-spacing: -0.03em;
+      color: var(--text-strong);
+    }
+
+    .project-desc {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 1rem;
+      line-height: 1.85;
+      max-width: 620px;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+      color: var(--primary);
+      font-weight: 650;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.7fr);
+      gap: 34px;
+      align-items: start;
+    }
+
+    .contact-text p {
+      max-width: 680px;
+      margin: 0;
+      color: var(--text-soft);
+      line-height: 1.9;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 18px;
+    }
+
+    .contact-item {
+      padding-top: 16px;
+      border-top: 1px solid rgba(195, 215, 238, 0.10);
+    }
+
+    .contact-item strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      color: var(--text-strong);
+    }
+
+    .contact-item a {
+      color: var(--text-soft);
+    }
+
+    .contact-item .btn {
+      margin-top: 4px;
+    }
+
+    .footer {
+      padding: 30px 0 42px;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    .other-project-visual {
+  align-items: center;
+  justify-content: center;
+}
+
+.other-project-visual img {
+  width: 330px;
+  max-width: 100%;
+  height: auto;
+}
+
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .about-layout,
+      .contact-layout,
+      .project-row {
+        grid-template-columns: 1fr;
+      }
+
+      .about-profile {
+        grid-template-columns: 1fr;
+      }
+
+      .about-skill-wrap {
+        padding-left: 0;
+      }
+
+      .project-visual {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav-inner {
+        height: auto;
+        padding: 16px 0;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        gap: 14px 18px;
+      }
+
+      .hero {
+        padding: 72px 0 42px;
+      }
+
+      .hero-shell {
+        padding: 42px 20px 28px;
+      }
+
+      .section {
+        padding: 74px 0;
+      }
+
+      .section-head {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .skill-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero-highlight {
+        font-size: 1.5rem;
+      }
+
+      .project-row {
+        gap: 22px;
+        padding: 26px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="brand">宋正宾 · 用户体验作品集</a>
+      <nav class="nav-links">
+        <a href="#home">首页</a>
+        <a href="#about">关于我</a>
+        <a href="#work">作品集</a>
+        <a href="#contact">联系方式</a>
+        <a class="resume-btn" href="resume.pdf" target="_blank">简历</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-shell">
+          <div class="hero-grid">
+            <div>
+              <div class="tag">用户体验设计 · 产品设计 · 交互设计</div>
+              <h1>宋正宾</h1>
+              <div class="hero-role">用户体验 / 产品设计师</div>
+              <p class="hero-text">
+                用户研究 · 交互设计 · 体验优化<br>
+                将复杂问题转化为清晰、易用的数字体验
+              </p>
+              <div class="hero-actions">
+                <a class="btn btn-primary" href="#work">查看作品</a>
+                <a class="btn btn-secondary" href="resume.pdf" target="_blank">查看简历</a>
+              </div>
+            </div>
+
+            <div class="hero-panel">
+              <div class="hero-panel-title">设计关注点</div>
+              <div class="hero-highlight">
+                用户研究<br>
+                交互设计<br>
+                体验优化
+              </div>
+              <ul class="hero-list">
+                <li>从研究中提炼设计机会</li>
+                <li>关注信息结构与交互逻辑</li>
+                <li>通过迭代持续优化体验</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-kicker">01</div>
+          <h2 class="section-title">关于我</h2>
+          <p class="section-desc">
+            我是一名用户体验设计师，本科拥有商学院信息系统背景，目前在密歇根大学安娜堡分校信息学院攻读研究生，专注于用户体验研究与设计方向。
+          </p>
+        </div>
+
+        <div class="about-layout">
+          <div>
+            <div class="about-profile">
+              <div class="about-avatar">
+                <img src="homeimg/宋正宾照片.jpg" alt="个人头像">
+              </div>
+
+              <div>
+                <div class="about-name">宋正宾</div>
+                <div class="about-subtitle">用户体验 / 产品设计师</div>
+
+                <p class="about-summary">
+                  我通过用户研究与结构化分析理解问题，并将复杂问题转化为清晰、可用的用户体验。
+                </p>
+
+                <div class="about-meta">
+                  <div class="about-meta-item">
+                    <strong>教育背景</strong>
+
+                    <div class="edu-item">
+                      密歇根大学安娜堡分校 · 信息科学硕士（用户体验研究与设计方向）
+                      <div class="edu-time">2025 - 至今</div>
+                    </div>
+
+                    <div class="edu-item">
+                      堪萨斯大学 · 信息系统本科
+                      <div class="edu-time">2020 - 2024</div>
+                    </div>
+                  </div>
+
+                  <div class="about-meta-item">
+                    <strong>关注方向</strong>
+                    <p>用户研究、交互设计、信息架构、产品体验优化</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-skill-wrap">
+            <div class="mini-label">技能</div>
+            <h3>工具与技术能力</h3>
+
+            <div class="skill-grid">
+              <div class="skill-item">
+                <img src="homeimg/axure.png" alt="Axure">
+                <span>Axure</span>
+              </div>
+
+              <div class="skill-item">
+                <img src="homeimg/figma.png" alt="Figma">
+                <span>Figma</span>
+              </div>
+
+              <div class="skill-item">
+                <img src="homeimg/html.png" alt="HTML">
+                <span>HTML</span>
+              </div>
+
+              <div class="skill-item">
+                <img src="homeimg/ps.png" alt="PS">
+                <span>PS</span>
+              </div>
+
+              <div class="skill-item">
+                <img src="homeimg/python.jpg" alt="Python">
+                <span>Python</span>
+              </div>
+
+              <div class="skill-item">
+                <img src="homeimg/sql.png" alt="SQL">
+                <span>SQL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="work">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-kicker">02</div>
+          <h2 class="section-title">作品集</h2>
+          <p class="section-desc">
+            以下项目展示了我在用户研究、交互设计、原型设计与可用性测试方面的实践过程，体现了从问题发现到设计迭代的完整流程。
+          </p>
+        </div>
+
+        <div class="works-grid">
+          <a href="safeeats.html" class="project-row">
+            <div class="project-visual">
+              <img src="homeimg/Safeeatslogo.png" alt="SafeEats">
+            </div>
+            <div class="project-content">
+              <div class="project-meta">用户体验设计 · 用户研究 · 交互设计</div>
+              <h3 class="project-title">SafeEats</h3>
+              <p class="project-desc">
+                为食物过敏用户设计更安全、更清晰的就餐决策体验。
+              </p>
+              <span class="project-link">查看项目 →</span>
+            </div>
+          </a>
+
+          <a href="gm.html" class="project-row">
+            <div class="project-visual">
+              <img src="homeimg/gm封面.png" alt="GM AR 驾驶体验项目">
+            </div>
+            <div class="project-content">
+              <div class="project-meta">交互设计 · 场景设计 · 原型设计</div>
+              <h3 class="project-title">GM AR 驾驶体验项目</h3>
+              <p class="project-desc">
+                探索复杂驾驶场景下的 AR 信息呈现与交互方式。
+              </p>
+              <span class="project-link">查看项目 →</span>
+            </div>
+          </a>
+
+          <a href="otherworks.html" class="project-row other-project-row">
+            <div class="project-visual other-project-visual">
+              <img src="homeimg/otherworks封面.png" alt="Other Works">
+            </div>
+            <div class="project-content">
+              <div class="project-meta">其他项目</div>
+              <h3 class="project-title">Other Works</h3>
+              <p class="project-desc">
+                包含品牌视觉、海报设计与多种平面设计探索，体现视觉表达与设计基础能力。
+              </p>
+              <span class="project-link">查看项目 →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-kicker">03</div>
+          <h2 class="section-title">联系方式</h2>
+          <p class="section-desc">
+            欢迎通过以下方式与我联系。无论是实习机会还是设计交流，我都期待与您进一步沟通。
+          </p>
+        </div>
+
+        <div class="contact-layout">
+          <div class="contact-text">
+            <p>
+              如果你对我的项目或设计方法感兴趣，欢迎与我联系。我更关注通过用户研究与结构化分析理解问题，并将复杂问题转化为清晰、可用的用户体验。
+            </p>
+          </div>
+
+          <div class="contact-list">
+            <div class="contact-item">
+              <strong>邮箱</strong>
+              <a href="mailto:s792168@126.com">s792168@126.com</a>
+            </div>
+            <div class="contact-item">
+              <strong>简历</strong>
+              <a href="resume.pdf" target="_blank" class="btn btn-primary">查看简历</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      © 2026 宋正宾 · 用户体验作品集
+    </div>
+  </footer>
+</body>
+</html>

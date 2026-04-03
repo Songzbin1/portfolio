@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GM AR 驾驶体验｜宋正宾用户体验作品集</title>
+  <style>
+    :root {
+      --bg: #111827;
+      --bg-soft: #162131;
+      --bg-deep: #0f1724;
+      --surface: rgba(255, 255, 255, 0.04);
+      --surface-2: rgba(255, 255, 255, 0.06);
+      --surface-3: rgba(255, 255, 255, 0.08);
+      --text-strong: #f7fbff;
+      --text: #e2ebf5;
+      --text-soft: #c7d4e2;
+      --text-muted: #aebed1;
+      --line: rgba(190, 210, 230, 0.16);
+      --line-soft: rgba(190, 210, 230, 0.09);
+      --primary: #d2e2f4;
+      --primary-soft: #9bb4ce;
+      --accent: #7ea5d2;
+      --shadow-lg: 0 26px 70px rgba(0, 0, 0, 0.34);
+      --shadow-md: 0 16px 40px rgba(0, 0, 0, 0.24);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+      --max-width: 1240px;
+      --wide-width: 1480px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      line-height: 1.75;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(111, 143, 179, 0.16), transparent 24%),
+        radial-gradient(circle at 88% 8%, rgba(145, 169, 195, 0.10), transparent 20%),
+        linear-gradient(180deg, #162131 0%, #111827 42%, #0f1724 100%);
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .wide-container {
+      width: min(var(--wide-width), calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(15, 23, 36, 0.72);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(195, 215, 238, 0.08);
+    }
+
+    .nav-inner {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-size: 1.02rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      color: var(--text-strong);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      transition: color 0.25s ease, transform 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-strong);
+      transform: translateY(-1px);
+    }
+
+    .resume-btn {
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #d8e6f5 0%, #9eb8d5 100%);
+      color: #0f1724 !important;
+      font-weight: 700;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+    }
+
+    .hero {
+      padding: 82px 0 56px;
+    }
+
+    .hero-shell {
+      position: relative;
+      padding: 74px 46px 40px;
+      border-radius: 38px;
+      background:
+        radial-gradient(circle at 74% 14%, rgba(126, 165, 210, 0.18), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.025) 100%);
+      border: 1px solid rgba(195, 215, 238, 0.10);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-shell::after {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(195, 215, 238, 0.05);
+      border-radius: 28px;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.88fr) minmax(0, 2fr);
+      gap: 46px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-type {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(195, 215, 238, 0.12);
+      color: var(--primary);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      margin-bottom: 18px;
+    }
+
+    .project-title {
+      margin: 0 0 18px;
+      font-size: clamp(3.2rem, 6vw, 5.3rem);
+      line-height: 0.92;
+      letter-spacing: -0.065em;
+      font-weight: 780;
+      color: var(--text-strong);
+      max-width: 500px;
+    }
+
+    .project-subtitle {
+      margin: 0 0 26px;
+      max-width: 560px;
+      color: var(--text-soft);
+      font-size: 1.05rem;
+      line-height: 1.9;
+    }
+
+    .project-facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 12px;
+      max-width: 620px;
+    }
+
+    .project-facts span {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(195, 215, 238, 0.12);
+      font-size: 0.91rem;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    .hero-visual-wrap {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .hero-main-visual {
+  border-radius: 0;
+  overflow: visible;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+    .hero-main-visual img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 28px;
+  background: #0b1f36;
+  cursor: zoom-in;
+}
+
+    .hero-top img,
+.hero-bottom img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+    .main-section {
+      padding: 20px 0 96px;
+    }
+.content-grid {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 54px;
+  align-items: start;
+}
+
+.toc {
+  position: sticky;
+  top: 106px;
+}
+
+.toc-inner {
+  padding-left: 18px;
+  border-left: 1px solid rgba(195, 215, 238, 0.12);
+}
+
+.toc-title {
+  margin-bottom: 16px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.toc a {
+  display: block;
+  padding: 10px 0;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  transition: color 0.22s ease, transform 0.22s ease;
+}
+
+.toc a:hover {
+  color: var(--text-strong);
+  transform: translateX(4px);
+}
+    .article {
+      display: flex;
+      flex-direction: column;
+      gap: 92px;
+    }
+
+    .section {
+      position: relative;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr);
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 34px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-kicker {
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      line-height: 1;
+      font-weight: 760;
+      letter-spacing: -0.05em;
+      color: rgba(195, 215, 238, 0.24);
+    }
+
+    .section-head-main {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      gap: 28px;
+      align-items: end;
+    }
+
+
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(2rem, 3.2vw, 2.8rem);
+      line-height: 1.04;
+      letter-spacing: -0.045em;
+      font-weight: 740;
+      color: var(--text-strong);
+    }
+
+    .section-desc {
+      margin: 0;
+      max-width: none;
+      color: var(--text-soft);
+      font-size: 1rem;
+      line-height: 1.88;
+    }
+
+    .mini-label {
+      display: inline-block;
+      margin-bottom: 12px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.18fr);
+      gap: 60px;
+      margin-bottom: 34px;
+      align-items: start;
+    }
+
+    .overview-block h3,
+    .challenge-block h3,
+    .reflection-item h3 {
+      margin: 0 0 12px;
+      font-size: 1.18rem;
+      letter-spacing: -0.02em;
+      color: var(--text-strong);
+    }
+
+    .overview-block p,
+    .challenge-block p,
+    .reflection-item p {
+      margin: 0;
+      color: var(--text-soft);
+      line-height: 1.9;
+      font-size: 0.98rem;
+    }
+
+    .process-flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .process-step {
+      position: relative;
+      padding-top: 16px;
+    }
+
+    .process-step::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 42px;
+      height: 1px;
+      background: rgba(195, 215, 238, 0.22);
+    }
+
+    .process-step strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.98rem;
+      color: var(--text-strong);
+    }
+
+    .process-step span {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.72;
+    }
+
+    .overview-image-block {
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(195, 215, 238, 0.10);
+      box-shadow: var(--shadow-md);
+    }
+
+    .overview-image-block img {
+      width: 100%;
+      height: clamp(220px, 30vw, 340px);
+      object-fit: cover;
+      cursor: zoom-in;
+    }
+
+    .research-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .research-left {
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+    }
+
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .analysis-card {
+      padding-top: 16px;
+      border-top: 1px solid rgba(195, 215, 238, 0.14);
+    }
+
+    .analysis-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.08rem;
+      color: var(--text-strong);
+      line-height: 1.45;
+    }
+
+    .analysis-card p {
+      margin: 0 0 16px;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+      line-height: 1.82;
+    }
+
+    .analysis-image {
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(195, 215, 238, 0.10);
+      box-shadow: var(--shadow-md);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .analysis-image img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      transition: transform 0.32s ease;
+      cursor: zoom-in;
+    }
+
+    .analysis-card:hover .analysis-image img {
+      transform: scale(1.03);
+    }
+
+    .data-viz {
+      padding: 26px 24px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.03) 100%);
+      border: 1px solid rgba(195, 215, 238, 0.10);
+      box-shadow: var(--shadow-md);
+    }
+
+    .data-item + .data-item {
+      margin-top: 22px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(195, 215, 238, 0.08);
+    }
+
+    .label {
+      font-size: 0.92rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .bar {
+      height: 10px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #d7e5f4 0%, #7da4cf 100%);
+    }
+
+    .fill.towing { width: 60%; }
+    .fill.offroad { width: 40%; }
+    .fill.long { width: 30%; }
+
+    .value {
+      font-size: 0.82rem;
+      color: var(--text);
+      margin-top: 6px;
+    }
+
+    .desc {
+      font-size: 0.92rem;
+      color: var(--text-soft);
+      margin-top: 8px;
+      line-height: 1.72;
+    }
+
+    .challenge-block {
+      padding: 30px 28px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.03) 100%);
+      border: 1px solid rgba(195, 215, 238, 0.10);
+      box-shadow: var(--shadow-md);
+      align-self: start;
+    }
+
+    .challenge-strip-desc {
+      margin: 0 0 20px;
+      color: var(--text-soft);
+      font-size: 0.96rem;
+      line-height: 1.84;
+    }
+
+    .challenge-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .challenge-point {
+      padding-top: 16px;
+      border-top: 1px solid rgba(195, 215, 238, 0.10);
+    }
+
+    .challenge-point strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.02rem;
+      color: var(--text-strong);
+    }
+
+    .challenge-point p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+      line-height: 1.78;
+    }
+
+    .insight-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .insight-strip {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      align-self: start;
+    }
+
+    .insight-strip-item {
+      display: grid;
+      grid-template-columns: 58px minmax(0, 1fr);
+      gap: 14px;
+      padding: 22px 0;
+      align-items: start;
+      border-bottom: 1px solid rgba(195, 215, 238, 0.10);
+    }
+
+    .insight-strip-item:last-child {
+      border-bottom: none;
+    }
+
+    .insight-strip-index {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.2;
+      padding-top: 2px;
+      letter-spacing: 0.04em;
+    }
+
+    .insight-strip-body h4 {
+      margin: 0 0 8px;
+      font-size: 1.06rem;
+      line-height: 1.45;
+      color: var(--text-strong);
+    }
+
+    .insight-strip-body p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 0.97rem;
+      line-height: 1.82;
+    }
+
+    .highlight-block {
+      padding: 32px 30px 30px;
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.035) 100%);
+      border: 1px solid rgba(195, 215, 238, 0.10);
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .highlight-block::before {
+      content: "";
+      display: block;
+      width: 70px;
+      height: 5px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #d7e5f4 0%, #7da4cf 100%);
+      margin-bottom: 20px;
+    }
+
+    .highlight-block h3 {
+      margin: 0 0 16px;
+      font-size: 1.7rem;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--text-strong);
+    }
+
+    .highlight-block .section-desc {
+      color: var(--text-soft);
+    }
+
+    .highlight-grid {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .highlight-item {
+      position: relative;
+      padding: 22px 18px 20px 20px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(195, 215, 238, 0.10);
+      transition: all 0.3s ease;
+    }
+
+    .highlight-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      border-radius: 4px;
+      background: linear-gradient(180deg, #d7e5f4 0%, #7da4cf 100%);
+    }
+
+    .highlight-item strong {
+      display: block;
+      font-size: 1.02rem;
+      line-height: 1.52;
+      color: var(--text-strong);
+      padding-left: 10px;
+    }
+
+    .highlight-item:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.06);
+      box-shadow: 0 20px 44px rgba(0, 0, 0, 0.22);
+    }
+
+    .image-block {
+      margin-top: 22px;
+      border-radius: 24px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.03) 100%);
+      border: 1px solid rgba(195, 215, 238, 0.10);
+      box-shadow: var(--shadow-md);
+      padding: 14px;
+    }
+
+    .image-block img {
+      width: 100%;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      cursor: zoom-in;
+    }
+
+    .scenario-stack {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .scenario-card {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .scenario-title span {
+      display: block;
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .scenario-title h3 {
+      margin: 0;
+      font-size: 1.56rem;
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+      color: var(--text-strong);
+    }
+
+    .scenario-image {
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid rgba(195, 215, 238, 0.10);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .scenario-image img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      cursor: zoom-in;
+    }
+
+    .design-section .section-head-main {
+      grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+    }
+
+    .design-scroll {
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 14px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .design-track {
+      display: flex;
+      gap: 56px;
+      align-items: flex-start;
+      width: max-content;
+    }
+
+    .design-group {
+      flex: 0 0 auto;
+    }
+
+    .design-group-title {
+      margin: 0 0 16px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .driving-group {
+      width: 540px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .design-img.large {
+      width: 540px;
+      height: auto;
+      display: block;
+      border-radius: 22px;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(195, 215, 238, 0.10);
+      background: #0b1f36;
+      cursor: zoom-in;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .control-row {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      width: max-content;
+    }
+
+    .design-frame {
+      width: 550px;
+      border-radius: 0px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      overflow: hidden;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(195, 215, 238, 0.10);
+      background: #0b1f36;
+    }
+
+    .tall-frame {
+      height: 440px;
+      padding: 10px;
+    }
+
+    .design-img.tall {
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      border-radius: 0px;
+      background: #0b1f36;
+      cursor: zoom-in;
+    }
+
+    .reflection-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 42px;
+      padding-top: 6px;
+    }
+
+    .reflection-item {
+      position: relative;
+      padding-top: 18px;
+    }
+
+    .reflection-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 56px;
+      height: 1px;
+      background: rgba(195, 215, 238, 0.22);
+    }
+
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 42px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(195, 215, 238, 0.14);
+      background: rgba(255,255,255,0.04);
+      color: var(--text-strong);
+      font-weight: 600;
+      transition: all 0.25s ease;
+    }
+
+    .back-home:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .footer {
+      padding: 32px 0 44px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 99999;
+    }
+
+    .lightbox.is-open {
+      display: block;
+    }
+
+    .lightbox-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 10, 18, 0.78);
+      backdrop-filter: blur(5px);
+    }
+
+    .lightbox-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(92vw, 1180px);
+      max-height: 88vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-content img {
+      width: auto;
+      max-width: 100%;
+      max-height: 88vh;
+      display: block;
+      border-radius: 20px;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.48);
+      background: #fff;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 999px;
+      background: #fff;
+      color: #111;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.22);
+    }
+
+    .challenge-block {
+  margin-top: 150px;
+}
+
+.insight-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+  gap: 34px;
+  align-items: start;
+}
+
+.insight-strip {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding-right: 22px;
+}
+
+.insight-strip-item {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 18px;
+  padding: 26px 0 28px;
+  align-items: start;
+  border-bottom: 1px solid rgba(195, 215, 238, 0.10);
+}
+
+.insight-strip-item:last-child {
+  border-bottom: none;
+}
+
+.insight-strip-index {
+  font-size: 1.15rem;
+  font-weight: 750;
+  line-height: 1;
+  color: var(--primary);
+  padding-top: 2px;
+  letter-spacing: 0.04em;
+}
+
+.insight-strip-body h4 {
+  margin: 0 0 12px;
+  font-size: 1.14rem;
+  line-height: 1.42;
+  color: var(--text-strong);
+}
+
+.insight-strip-body p {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 0.99rem;
+  line-height: 1.9;
+}
+
+.insight-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+  gap: 34px;
+  align-items: center;
+}
+.insight-strip {
+  margin-top: 100px;
+}
+
+    @media (max-width: 1180px) {
+      .hero-shell {
+        padding: 58px 28px 30px;
+      }
+
+      .hero-grid,
+      .overview-grid,
+      .research-layout,
+      .insight-layout,
+      .section-head-main,
+      .scenario-stack,
+      .reflection-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .process-flow {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .analysis-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .highlight-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav-inner {
+        height: auto;
+        padding: 16px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .section-head {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .process-flow {
+        grid-template-columns: 1fr;
+      }
+
+      .insight-strip-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .driving-group {
+        width: 420px;
+      }
+
+      .design-img.large {
+        width: 420px;
+      }
+
+      .design-frame {
+        width: 550px;
+      }
+
+      .tall-frame {
+        height: 420px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .container,
+      .wide-container {
+        width: min(var(--max-width), calc(100% - 28px));
+      }
+
+      .hero {
+        padding: 34px 0 24px;
+      }
+
+      .hero-shell {
+        padding: 42px 18px 22px;
+        border-radius: 28px;
+      }
+
+      .main-section {
+        padding: 18px 0 72px;
+      }
+
+      .article {
+        gap: 72px;
+      }
+
+      .project-title {
+        font-size: clamp(2.7rem, 12vw, 4rem);
+      }
+
+      .driving-group {
+        width: 320px;
+      }
+
+      .design-img.large {
+        width: 320px;
+      }
+
+      .design-frame {
+        width: 550px;
+      }
+
+      .tall-frame {
+        height: 360px;
+      }
+
+      .lightbox-close {
+        top: 10px;
+        right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand">宋正宾 · 用户体验作品集</a>
+      <nav class="nav-links">
+        <a href="index.html#home">首页</a>
+        <a href="index.html#about">关于我</a>
+        <a href="index.html#work">作品集</a>
+        <a href="index.html#contact">联系方式</a>
+        <a class="resume-btn" href="resume.pdf" target="_blank">简历</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-shell">
+          <div class="hero-grid">
+            <div>
+              <div class="project-type">汽车用户体验设计 · 概念方案</div>
+              <h1 class="project-title">GM AR 驾驶体验</h1>
+              <p class="project-subtitle">
+                在复杂驾驶场景中，例如视线受阻或环境变化快速时，驾驶者往往需要在有限时间内做出判断。本项目围绕这一问题，探索驾驶屏、中控屏与 AR 的协同设计，以提升驾驶中的信息感知与决策效率。
+              </p>
+
+              <div class="project-facts">
+                <span>角色：用户体验设计师</span>
+                <span>项目时长: 3个月</span>
+                <span>项目类型：概念方案</span>
+                <span>研究方向：竞品分析</span>
+                <span>设计内容：车载界面 · AR 驾驶辅助</span>
+              </div>
+            </div>
+
+            <div class="hero-visual-wrap">
+              <div class="hero-main-visual hero-top">
+                <img src="gmimg/driver display - map view.png" alt="GM 驾驶屏设计">
+              </div>
+              <div class="hero-main-visual hero-bottom">
+                <img src="gmimg/center.png" alt="GM 中控屏设计">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="main-section">
+  <div class="container content-grid">
+
+    <aside class="toc">
+      <div class="toc-inner">
+        <div class="toc-title">Contents</div>
+        <a href="#overview">项目概览</a>
+        <a href="#research">研究</a>
+        <a href="#insight">洞察</a>
+        <a href="#scenario">场景</a>
+        <a href="#design">设计</a>
+        <a href="#reflection">反思</a>
+      </div>
+    </aside>
+
+    <div class="article">
+
+        <section class="section" id="overview">
+          <div class="section-head">
+            <div class="section-kicker">01</div>
+            <div class="section-head-main">
+              <div>
+                <h2 class="section-title">项目概览</h2>
+              </div>
+            </div>
+          </div>
+
+          <div class="overview-grid">
+            <div class="overview-block">
+              <div class="mini-label">项目背景</div>
+              <h3>为什么做这个项目</h3>
+              <p>
+                随着 特斯拉 Cybertruck、Rivian 等电动皮卡不断推动车载体验升级，传统皮卡品牌在界面架构、数字化程度与驾驶感知表达上面临更直接的竞争压力。这个项目关注的不是单纯“换一块更大的屏幕”，而是如何帮助 GM 在未来皮卡场景中建立更清晰、更现代的车载体验方向。
+              </p>
+            </div>
+
+            <div class="overview-block">
+              <div class="mini-label">项目过程</div>
+              <h3>我是如何推进这个项目的</h3>
+              <div class="process-flow">
+                <div class="process-step">
+                  <strong>研究</strong>
+                  <span>梳理皮卡使用情境与车载体验问题</span>
+                </div>
+                <div class="process-step">
+                  <strong>竞品分析</strong>
+                  <span>比较特斯拉、福特与 GM 的界面逻辑</span>
+                </div>
+                <div class="process-step">
+                  <strong>洞察</strong>
+                  <span>提炼信息分层与跨屏协同问题</span>
+                </div>
+                <div class="process-step">
+                  <strong>场景</strong>
+                  <span>构建复杂驾驶场景中的关键任务</span>
+                </div>
+                <div class="process-step">
+                  <strong>设计</strong>
+                  <span>形成驾驶屏、中控屏与 AR 设计方案</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="overview-image-block">
+            <img src="gmimg/process-flow.png" alt="项目流程图">
+          </div>
+        </section>
+
+        <section class="section" id="research">
+          <div class="section-head">
+            <div class="section-kicker">02</div>
+            <div class="section-head-main">
+              <div>
+                <h2 class="section-title">研究 & 竞品分析</h2>
+              </div>
+              <p class="section-desc">
+                项目从竞品分析入手，比较特斯拉 Cybertruck、福特 F-150 Lightning 与雪佛兰 Silverado 在导航、娱乐、空调、车辆控制及驾驶信息上的组织方式，以理解未来皮卡车载界面的变化趋势。
+              </p>
+            </div>
+          </div>
+
+          <div class="research-layout">
+            <div class="research-left">
+              <div class="analysis-grid">
+                <div class="analysis-card">
+                  <div class="mini-label">特斯拉</div>
+                  <h3>高度集中化</h3>
+                  <p>
+                    更强调中央大屏与屏幕主导控制，支持更灵活的分屏，但在高风险操作中更依赖数字交互。
+                  </p>
+                  <div class="analysis-image">
+                    <img src="gmimg/Tesla.png" alt="特斯拉 interface">
+                  </div>
+                </div>
+
+                <div class="analysis-card">
+                  <div class="mini-label">福特</div>
+                  <h3>混合式交互</h3>
+                  <p>
+                    在数字化体验基础上保留部分物理按键，兼顾地图优先显示、快捷入口与驾驶中的快速访问。
+                  </p>
+                  <div class="analysis-image">
+                    <img src="gmimg/ford.png" alt="福特 interface">
+                  </div>
+                </div>
+
+                <div class="analysis-card">
+                  <div class="mini-label">GM 机会点</div>
+                  <h3>结构稳定但偏保守</h3>
+                  <p>
+                    雪佛兰 Silverado 现有结构更稳定，但在灵活性、跨屏协同以及未来感表达上仍有进一步升级空间。
+                  </p>
+                  <div class="analysis-image">
+                    <img src="gmimg/gm.png" alt="GM 界面">
+                  </div>
+                </div>
+              </div>
+
+              <div class="data-viz">
+                <div class="data-item">
+                  <div class="label">拖车</div>
+                  <div class="bar">
+                    <div class="fill towing"></div>
+                  </div>
+                  <div class="value">50–60%</div>
+                  <div class="desc">
+                    超过一半的皮卡用户会进行拖车或重载运输，在该场景中驾驶者需要持续关注车辆状态与路径变化，信息整合压力较高。
+                  </div>
+                </div>
+
+                <div class="data-item">
+                  <div class="label">越野</div>
+                  <div class="bar">
+                    <div class="fill offroad"></div>
+                  </div>
+                  <div class="value">30–40%</div>
+                  <div class="desc">
+                    约三分之一的用户在非铺装道路或越野环境中驾驶，此类场景中前方路径信息不可见，驾驶者高度依赖经验进行判断。
+                  </div>
+                </div>
+
+                <div class="data-item">
+                  <div class="label">长途</div>
+                  <div class="bar">
+                    <div class="fill long"></div>
+                  </div>
+                  <div class="value">40–50%</div>
+                  <div class="desc">
+                    皮卡广泛用于长途出行与跨区域运输，长时间驾驶增加认知负担，对持续且低干扰的信息支持提出更高要求。
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="challenge-block">
+              <div class="mini-label">关键问题</div>
+              <h3>从使用场景与竞品分析中提炼出的设计问题</h3>
+              <p class="challenge-strip-desc">
+                结合皮卡在拖车、越野与长途等典型驾驶场景中的任务特点，以及竞品在信息组织方式上的差异，可以从“感知—判断—整合”三个层面提炼出复杂驾驶过程中存在的关键问题。
+              </p>
+
+              <div class="challenge-list">
+                <div class="challenge-point">
+                  <strong>感知受限</strong>
+                  <p>
+                    在夜间、视线受阻或复杂环境中，驾驶者难以及时获取前方道路与潜在风险信息，缺乏对环境的实时感知能力。
+                  </p>
+                </div>
+
+                <div class="challenge-point">
+                  <strong>路径判断困难</strong>
+                  <p>
+                    在越野或非标准道路环境中，道路边界不明确，传统导航难以提供有效引导，驾驶者需要依赖经验进行判断。
+                  </p>
+                </div>
+
+                <div class="challenge-point">
+                  <strong>信息整合负担高</strong>
+                  <p>
+                    竞品中信息要么集中于中心屏，要么分散在多个区域，在拖车与长途等复杂任务中，驾驶者需要持续整合信息，增加认知负担。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="insight">
+          <div class="section-head">
+            <div class="section-kicker">03</div>
+            <div class="section-head-main">
+              <div>
+                <h2 class="section-title">洞察与 AR 机会点</h2>
+              </div>
+              <p class="section-desc">
+                基于前面的关键问题，我进一步将设计重点收敛到信息呈现位置、关键任务支持方式以及跨屏职责分工三个方向，并由此识别出 AR 作为设计机会点的价值。
+              </p>
+            </div>
+          </div>
+
+          <div class="insight-layout">
+            <div class="insight-strip">
+              <div class="insight-strip-item">
+                <div class="insight-strip-index">01</div>
+                <div class="insight-strip-body">
+                  <h4>复杂驾驶场景更需要降低判断成本</h4>
+                  <p>
+                    在高负荷驾驶任务中，系统的价值不在于展示更多信息，而在于帮助驾驶者更快识别真正重要的信息并完成判断。
+                  </p>
+                </div>
+              </div>
+
+              <div class="insight-strip-item">
+                <div class="insight-strip-index">02</div>
+                <div class="insight-strip-body">
+                  <h4>关键任务信息应更靠近驾驶视野</h4>
+                  <p>
+                    路径、风险与环境提示如果分散在不同界面中，会增加视线切换与信息整合成本，因此更适合被前置到驾驶视野附近。
+                  </p>
+                </div>
+              </div>
+
+              <div class="insight-strip-item">
+                <div class="insight-strip-index">03</div>
+                <div class="insight-strip-body">
+                  <h4>跨屏设计应强调分工而非重复</h4>
+                  <p>
+                    驾驶屏、中控屏与 AR 不应展示相同信息，而应分别承担判断、操作与增强提示的不同职责，以提升整体协同效率。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="highlight-block">
+              <div class="mini-label">设计方向</div>
+              <h3>为什么 AR 成为核心概念</h3>
+
+              <p class="section-desc">
+                现有车机系统能够展示越来越多信息，但在复杂驾驶场景中，对“提前感知”和“预测性提示”的支持仍然有限。因此，我将设计方向聚焦为通过 AR 将路径、风险与导航信息直接叠加到驾驶视野中，让系统从“信息展示”走向“辅助判断”。
+              </p>
+
+              <div class="highlight-grid">
+                <div class="highlight-item">
+                  <strong>预判前方路径</strong>
+                </div>
+
+                <div class="highlight-item">
+                  <strong>突出关键风险</strong>
+                </div>
+
+                <div class="highlight-item">
+                  <strong>在恰当时机呈现上下文信息</strong>
+                </div>
+              </div>
+
+              <div class="image-block">
+                <img src="gmimg/AR.png" alt="传统驾驶与 AR 驾驶对比">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="scenario">
+          <div class="section-head">
+            <div class="section-kicker">04</div>
+            <div class="section-head-main">
+              <div>
+                <h2 class="section-title">场景</h2>
+              </div>
+              <p class="section-desc">
+                为了验证 AR 在真实驾驶任务中的价值，我构建了两个典型场景，分别对应风险识别与路径判断。
+              </p>
+            </div>
+          </div>
+
+          <div class="scenario-stack">
+            <div class="scenario-card">
+              <div class="scenario-title">
+                <span>场景 01</span>
+                <h3>低可见性转弯</h3>
+              </div>
+              <div class="scenario-image">
+                <img src="gmimg/lowvision.png" alt="低可见性转弯 AR">
+              </div>
+            </div>
+
+            <div class="scenario-card">
+              <div class="scenario-title">
+                <span>场景 02</span>
+                <h3>越野路径导航</h3>
+              </div>
+              <div class="scenario-image">
+                <img src="gmimg/offroad.png" alt="越野 AR navigation">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section design-section" id="design">
+          <div class="section-head">
+            <div class="section-kicker">05</div>
+            <div class="section-head-main">
+              <div>
+                <h2 class="section-title">设计</h2>
+              </div>
+              <p class="section-desc">
+                最终设计围绕驾驶屏幕 + 中控屏 + AR 提示展开，形成清晰的信息分层与协同逻辑。
+              </p>
+            </div>
+          </div>
+
+          <div class="wide-container">
+            <div class="design-scroll">
+              <div class="design-track">
+                <div class="design-group driving-group">
+                  <h3 class="design-group-title">驾驶层</h3>
+                  <img src="gmimg/driver display - map view.png" class="design-img large" alt="驾驶屏地图视图">
+                  <img src="gmimg/driver display - tire pressue.png" class="design-img large" alt="驾驶屏胎压视图">
+                </div>
+
+                <div class="design-group control-group">
+                  <h3 class="design-group-title">控制层</h3>
+                  <div class="control-row">
+                    <div class="design-frame tall-frame">
+                      <img src="gmimg/AR V2.png" class="design-img tall" alt="AR 设置界面">
+                    </div>
+
+                    <div class="design-frame tall-frame">
+                      <img src="gmimg/Towing Assist.png" class="design-img tall" alt="拖车 assist screen">
+                    </div>
+
+                    <div class="design-frame tall-frame">
+                      <img src="gmimg/Off-Road.png" class="design-img tall" alt="越野 screen">
+                    </div>
+
+                    <div class="design-frame tall-frame">
+                      <img src="gmimg/Lane Guidance.png" class="design-img tall" alt="车道引导界面">
+                    </div>
+
+                    <div class="design-frame tall-frame">
+                      <img src="gmimg/Night Vision.png" class="design-img tall" alt="夜视界面">
+                    </div>
+
+                    <div class="design-frame tall-frame">
+                      <img src="gmimg/center.png" class="design-img tall" alt="中控首页界面">
+                    </div>
+
+                    <div class="design-frame tall-frame">
+                      <img src="gmimg/Map.png" class="design-img tall" alt="地图界面">
+                    </div>
+
+                    <div class="design-frame tall-frame">
+                      <img src="gmimg/Media.png" class="design-img tall" alt="媒体界面">
+                    </div>
+
+                    <div class="design-frame tall-frame">
+                      <img src="gmimg/Vehicle Controls.png" class="design-img tall" alt="车辆控制界面">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="reflection">
+          <div class="section-head">
+            <div class="section-kicker">06</div>
+            <div class="section-head-main">
+              <div>
+                <h2 class="section-title">反思</h2>
+              </div>
+            </div>
+          </div>
+
+          <div class="reflection-grid">
+            <div class="reflection-item">
+              <h3>从界面到体验</h3>
+              <p>
+                这个项目让我更清楚地意识到，车载设计的重点并不只是屏幕视觉，而是如何在真实驾驶情境中平衡信息密度、反馈时机与决策效率。
+              </p>
+            </div>
+
+            <div class="reflection-item">
+              <h3>设计师可以定义机会</h3>
+              <p>
+                对我来说，这个项目最有价值的部分是我不仅参与了研究与分析，也主动提出了 AR 驾驶辅助这一核心概念。这让我进一步认识到，设计师的价值不仅在于执行，也在于发现机会并推动方向。
+              </p>
+            </div>
+          </div>
+
+          <a class="back-home" href="index.html#work">← 返回首页</a>
+        </section>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      © 2026 宋正宾 · 用户体验作品集
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-backdrop"></div>
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose" aria-label="关闭预览">×</button>
+      <img id="lightboxImage" src="" alt="放大预览">
+    </div>
+  </div>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const previewImages = document.querySelectorAll('img');
+
+    previewImages.forEach((img) => {
+      img.addEventListener('click', () => {
+        if (!img.getAttribute('src')) return;
+        lightboxImage.src = img.src;
+        lightboxImage.alt = img.alt || '放大预览';
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImage.src = '';
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target.classList.contains('lightbox-backdrop')) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('is-open')) {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>
